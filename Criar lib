@@ -5,7 +5,7 @@ Primeiramente, crie um novo projeto para a sua biblioteca. Você pode fazer isso
 Usando create-react-native-library (Recomendado):
 
 ```
-npx create-react-native-library react-native-permissions-module
-cd react-native-permissions-module
-
+function test() {
+  console.log("notice the blank line before this function?");
+}
 ```
