@@ -3,7 +3,6 @@ Passo a Passo: Criar uma Biblioteca de Módulo de Permissões para NPM
 
 Primeiramente, crie um novo projeto para a sua biblioteca. Você pode fazer isso manualmente ou utilizar uma ferramenta como o create-react-native-library.
 Usando create-react-native-library (Recomendado):
-
 ```
 function test() {
   console.log("notice the blank line before this function?");
