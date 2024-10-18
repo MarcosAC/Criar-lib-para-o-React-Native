@@ -129,16 +129,13 @@ public class PermissionsPackage implements ReactPackage {
 
 3. Registrar o Módulo no Android
 
-No arquivo android/src/main/AndroidManifest.xml, adicione a permissão necessária:
+No arquivo ```android/src/main/AndroidManifest.xml```, adicione a permissão necessária:
 
-xml
+```<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />```
 
-<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+No arquivo ```android/build.gradle```, garanta que o minSdkVersion seja compatível (normalmente 21 ou superior):
 
-No arquivo android/build.gradle, garanta que o minSdkVersion seja compatível (normalmente 21 ou superior):
-
-gradle
-
+```
 android {
     compileSdkVersion 33
 
@@ -146,24 +143,25 @@ android {
         minSdkVersion 21
     }
 }
+```
 
 4. Expor o Módulo para o JavaScript
 
-No arquivo index.js da biblioteca, expor o módulo nativo para o JavaScript:
+No arquivo ```index.js``` da biblioteca, expor o módulo nativo para o JavaScript:
 
-javascript
-
+```
 import { NativeModules } from 'react-native';
 
 const { PermissionsModule } = NativeModules;
 
 export default PermissionsModule;
+```
 
 5. Adicionar Scripts para Compilação e Publicação
 
 No arquivo package.json, adicione os scripts necessários para compilar e preparar a biblioteca:
 
-json
+```json
 
 {
   "name": "react-native-permissions-module",
@@ -178,6 +176,7 @@ json
     "react-native": ">=0.64.0"
   }
 }
+```
 
 6. Testar Localmente
 
@@ -185,15 +184,16 @@ Antes de publicar, é uma boa ideia testar a biblioteca em um projeto React Nati
 
     Instale a biblioteca localmente: No projeto onde você quer testar a biblioteca, use o seguinte comando:
 
-    bash
+    ```bash
 
 npm install ../caminho-para-a-sua-biblioteca/react-native-permissions-module
+```
 
 Link Manualmente (se não estiver usando autolinking):
 
-Se o autolinking não funcionar, adicione manualmente o link do módulo Android no MainApplication.java:
+Se o autolinking não funcionar, adicione manualmente o link do módulo Android no ```MainApplication.java:```
 
-java
+```java
 
 import com.reactnativepermissionsmodule.PermissionsPackage;
 
@@ -204,37 +204,39 @@ protected List<ReactPackage> getPackages() {
         new PermissionsPackage()  // Aqui está o módulo que criamos
     );
 }
+```
 
 Executar o projeto:
 
-bash
+```bash
 
     npx react-native run-android
+```
 
 Se funcionar corretamente, está pronto para publicação.
+
 7. Publicar no NPM
 
 Agora que tudo está configurado e funcionando, você pode publicar sua biblioteca no npm.
 
     Login no npm (se ainda não estiver logado):
 
-    bash
+    ```bash
 
 npm login
+```
 
 Publicar a biblioteca:
 
-bash
+```bash
 
     npm publish
+```
 
 Isso publicará sua biblioteca no npm, e ela estará disponível para qualquer pessoa instalar via:
 
-bash
+```bash
 
 npm install react-native-permissions-module
-
-Conclusão
-
-Seguindo esses passos, você criou uma biblioteca de permissões em React Native que pode ser publicada e instalada via npm. Isso permite que você reutilize o módulo de permissões em diferentes projetos, tornando-o mais fácil de gerenciar e distribuir.
+```
 
