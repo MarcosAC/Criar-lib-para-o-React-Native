@@ -9,7 +9,6 @@ Usando create-react-native-library (Recomendado):
 ```
 npx create-react-native-library react-native-permissions-module
 cd react-native-permissions-module
-
 ```
 
 Este comando cria a estrutura básica de uma biblioteca React Native. Ele já configura pastas e arquivos necessários para que a biblioteca seja instalada via npm e usada em projetos React Native.
@@ -35,7 +34,6 @@ Crie a estrutura de diretórios:
 
 ```
 mkdir -p android/src/main/java/com/reactnativepermissionsmodule
-
 ```
 
 Crie o arquivo PermissionsModule.java:
@@ -46,7 +44,7 @@ Caminho:
 
 Adicione o conteúdo:
 
-```
+```java
 package com.reactnativepermissionsmodule;
 
 import android.Manifest;
@@ -99,7 +97,7 @@ Caminho:
 
 Adicione o seguinte conteúdo:
 
-```
+```java
 package com.reactnativepermissionsmodule;
 
 import com.facebook.react.ReactPackage;
@@ -124,7 +122,6 @@ public class PermissionsPackage implements ReactPackage {
         return Collections.emptyList();
     }
 }
-
 ```
 
 3. Registrar o Módulo no Android
@@ -149,7 +146,7 @@ android {
 
 No arquivo ```index.js``` da biblioteca, expor o módulo nativo para o JavaScript:
 
-```
+```js
 import { NativeModules } from 'react-native';
 
 const { PermissionsModule } = NativeModules;
@@ -162,7 +159,6 @@ export default PermissionsModule;
 No arquivo package.json, adicione os scripts necessários para compilar e preparar a biblioteca:
 
 ```json
-
 {
   "name": "react-native-permissions-module",
   "version": "1.0.0",
@@ -182,10 +178,9 @@ No arquivo package.json, adicione os scripts necessários para compilar e prepar
 
 Antes de publicar, é uma boa ideia testar a biblioteca em um projeto React Native localmente.
 
-    Instale a biblioteca localmente: No projeto onde você quer testar a biblioteca, use o seguinte comando:
+Instale a biblioteca localmente: No projeto onde você quer testar a biblioteca, use o seguinte comando:
 
 ```bash
-
 npm install ../caminho-para-a-sua-biblioteca/react-native-permissions-module
 ```
 
@@ -194,7 +189,6 @@ Link Manualmente (se não estiver usando autolinking):
 Se o autolinking não funcionar, adicione manualmente o link do módulo Android no ```MainApplication.java:```
 
 ```java
-
 import com.reactnativepermissionsmodule.PermissionsPackage;
 
 @Override
@@ -209,8 +203,7 @@ protected List<ReactPackage> getPackages() {
 Executar o projeto:
 
 ```bash
-
-    npx react-native run-android
+npx react-native run-android
 ```
 
 Se funcionar corretamente, está pronto para publicação.
@@ -219,27 +212,25 @@ Se funcionar corretamente, está pronto para publicação.
 
 Agora que tudo está configurado e funcionando, você pode publicar sua biblioteca no npm.
 
-    Login no npm (se ainda não estiver logado):
+Login no npm (se ainda não estiver logado):
 
 ```bash
-
 npm login
 ```
 
 Publicar a biblioteca:
 
 ```bash
-
-    npm publish
+npm publish
 ```
 
 Isso publicará sua biblioteca no npm, e ela estará disponível para qualquer pessoa instalar via:
 
 ```bash
-
 npm install react-native-permissions-module
 ```
 
+=====================================================================================================
 
 Passos para criar uma biblioteca nativa iOS em React Native:
 
@@ -264,8 +255,7 @@ Passo a passo detalhado:
 
 Certifique-se de ter um projeto React Native configurado corretamente. No terminal, navegue até o diretório do seu projeto e execute:
 
-```
-
+```bash
 npx react-native init MyProject
 cd MyProject
 ```
@@ -278,23 +268,22 @@ No Xcode, crie um novo arquivo Swift dentro dessa pasta e certifique-se de que o
 3. Instalar FTPManager
 
 Adicione a dependência FTPManager ao seu projeto iOS via CocoaPods. No diretório ios, abra o arquivo Podfile e adicione a linha:
-```
-pod 'FTPManager'
 
+```bash
+pod 'FTPManager'
 ```
 
 Depois, execute pod install para instalar a dependência:
+
 ```
 cd ios
 pod install
-
 ```
-
 4. Código Swift para o módulo FTP
 
 Crie o arquivo Swift do módulo nativo no diretório iOS, e implemente o seguinte código para enviar o arquivo via FTP:
 
-```
+```swift
 import FTPManager
 import React
 
@@ -321,7 +310,6 @@ class RNFTPModule: NSObject {
     return false
   }
 }
-
 ```
 
 Esse código usa a biblioteca FTPManager para enviar um arquivo. O método uploadFile recebe o caminho do arquivo, a URL do servidor, o nome de usuário e a senha, e utiliza promessas para enviar a resposta ao React Native.
@@ -334,20 +322,19 @@ Certifique-se de criar o arquivo Bridging-Header.h corretamente para garantir a 
 
 Para que o React Native possa usar o módulo, adicione o seguinte código no arquivo ios/MyProject/AppDelegate.m:
 
-```
+```swift
 #import <React/RCTBridgeModule.h>
 
 @interface RCT_EXTERN_MODULE(RNFTPModule, NSObject)
 RCT_EXTERN_METHOD(uploadFile:(NSString *)filePath toServer:(NSString *)serverURL withUsername:(NSString *)username password:(NSString *)password resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
 @end
-
 ```
 
 7. Usar o módulo no JavaScript
 
 Agora que o módulo está implementado, você pode usá-lo no código JavaScript/TypeScript do React Native:
 
-```
+```js
 import { NativeModules } from 'react-native';
 const { RNFTPModule } = NativeModules;
 
@@ -364,6 +351,4 @@ const uploadFileToFTP = async () => {
     console.error(error); // Falha
   }
 };
-
 ```
-
